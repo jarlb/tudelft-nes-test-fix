@@ -60,10 +60,10 @@ bitflags! {
         const NROM_TEST       = 0b00001000;
 
         /// This test selector runs all available tests
-        const ALL             = Self::NESTEST.bits | Self::ALL_INSTRS.bits | Self::NROM_TEST.bits;
+        const ALL             = Self::NESTEST.bits() | Self::ALL_INSTRS.bits() | Self::NROM_TEST.bits();
 
         /// This test selector runs a default selection of tests: `OFFICIAL_INSTRS` and `NROM_TEST`
-        const DEFAULT         = Self::OFFICIAL_INSTRS.bits | Self::NROM_TEST.bits;
+        const DEFAULT         = Self::OFFICIAL_INSTRS.bits() | Self::NROM_TEST.bits();
     }
 }
 
