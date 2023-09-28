@@ -24,9 +24,11 @@ pub const ROM_OFFICIAL_ONLY: &[u8] = include_bytes!("roms/official_only.nes");
 
 /// Implement this trait to run our test on our CPU via the [`run_tests`] function.
 pub trait TestableCpu: Cpu + Sized + 'static {
+    type GetCpuError: Error;
+
     /// This function is used by the test suite to get a handle on your CPU
     /// `rom` is a rom file in INES format.
-    fn get_cpu(rom: &[u8]) -> Result<Self, Box<dyn Error>>;
+    fn get_cpu(rom: &[u8]) -> Result<Self, Self::GetCpuError>;
 
     /// [`set_program_counter`] is used to set the program counter of the cpu to a specific position
     /// this is needed by some tests.
@@ -58,10 +60,10 @@ bitflags! {
         const NROM_TEST       = 0b00001000;
 
         /// This test selector runs all available tests
-        const ALL             = Self::NESTEST.bits | Self::ALL_INSTRS.bits | Self::NROM_TEST.bits;
+        const ALL             = Self::NESTEST.bits() | Self::ALL_INSTRS.bits() | Self::NROM_TEST.bits();
 
         /// This test selector runs a default selection of tests: `OFFICIAL_INSTRS` and `NROM_TEST`
-        const DEFAULT         = Self::OFFICIAL_INSTRS.bits | Self::NROM_TEST.bits;
+        const DEFAULT         = Self::OFFICIAL_INSTRS.bits() | Self::NROM_TEST.bits();
     }
 }
 
