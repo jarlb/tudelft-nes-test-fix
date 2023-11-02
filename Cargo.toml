@@ -15,7 +15,7 @@ license = "MIT"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-tudelft-nes-ppu = { version = "2.1.0", path = "../tudelft-nes-ppu" }
+tudelft-nes-ppu = {git = "https://github.com/jarlb/tudelft-nes-ppu-fix.git"}
 thiserror = "1"
 bitflags = "2.4"
 log = "0.4"
